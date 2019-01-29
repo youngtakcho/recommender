@@ -18,7 +18,7 @@
 ##############################
 url : "http://localhost:4000/recommender"
 baseurl : "/recommender" # does not include hostname
-title : recommender
+title : Game Recommender
 description: > # this means to ignore newlines until "Language & timezone"
   Your Site Description
 text_skin: default 
