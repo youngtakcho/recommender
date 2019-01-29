@@ -20,4 +20,6 @@ Nowadays, not only kids but adults play a game for release their stress. As the 
   </div>
 </div>
 
+Proposal <a href="https://drive.google.com/file/d/1ykD29Y5CNRTaGAw_3HWEGvdIeI67Lx_9/view?usp=sharing">Download</a>
+
 <!--more-->
