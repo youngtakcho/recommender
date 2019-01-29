@@ -10,13 +10,13 @@ Nowadays, not only kids but adults play a game for release their stress. As the 
 
 <div class="grid">
         <div class="grid_item first">
-<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/c.png" style="width:360px;height:640px;">
+<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/c.png" style="width:240px;height:427px;">
   </div>
         <div class="grid_item two">
-<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/b.png"  style="width:360px;height:640px;">
+<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/b.png"  style="width:240px;height:427px;">
   </div>
         <div class="grid_item third">
-<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/a.png"  style="width:360px;height:640px;">
+<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/a.png"  style="width:240px;height:427px;">
   </div>
 </div>
 
