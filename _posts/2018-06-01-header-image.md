@@ -8,6 +8,6 @@ article_header:
 ---
 
 "the Game Recommender" suggests a game which will be responsible your happy break-time.
-![Image](/screenshot.jpg){:.border}
+<div>{%- include extensions/slideshare.html id='u9L9zDsqEWNKE1' -%}</div>
 
 <!--more-->
