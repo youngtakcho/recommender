@@ -25,8 +25,8 @@ Nowadays, not only kids but adults play a game for release their stress. As the 
 
 Proposal <a href="https://drive.google.com/file/d/1ykD29Y5CNRTaGAw_3HWEGvdIeI67Lx_9/view?usp=sharing">Download</a>
 
-Amazon DataSet Download link 1 : https://s3.amazonaws.com/amazon-reviews-pds/tsv/index.txt <br>
-Steam DB : https://steamdb.info/ <br>
+Amazon DataSet Download link 1 : <a href="https://s3.amazonaws.com/amazon-reviews-pds/tsv/index.txt"> link </a> <br>
+Steam DB : <a href="https://steamdb.info/">link</a> <br>
 Similar apps link 1: https://store.steampowered.com/recommended/<br>
 Similar apps link 2:
 https://apps.quanticfoundry.com/recommendations/gamerprofile/videogame/<br>
