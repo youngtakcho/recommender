@@ -13,9 +13,12 @@ Nowadays, not only kids but adults play a game for release their stress. As the 
 <img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/c.png" style="width:240px;height:427px;">
   </div>
         <div class="grid_item two">
-<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/b.png"  style="width:240px;height:427px;">
+<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/d.png"  style="width:240px;height:427px;">
   </div>
         <div class="grid_item third">
+<img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/b.png"  style="width:240px;height:427px;">
+  </div>
+          <div class="grid_item fourth">
 <img src="https://raw.githubusercontent.com/youngtakcho/recommender/master/a.png"  style="width:240px;height:427px;">
   </div>
 </div>
