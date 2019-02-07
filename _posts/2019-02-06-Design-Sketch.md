@@ -48,12 +48,13 @@ Design Sketch
     d. Classifier predicts the user's class and pass it's result to filter.<br>
     e. Filter searches datas from Database by using the result and select data which fit to user's criterion. <br>
     f. Recommender calculates similarity between the user's writing and other users reviews.<br>
-    g. UI builder builds listview and it's components.<br>
+    g. Recommender selects Top 20 results passing it to UI builder.<br>
+    h. UI builder builds listview and it's components.<br>
 12. User pushes item which contains a game to get more information on the Listview.<br>
-    h. UI shows selected game's information with several reviews.<br>
+    i. UI shows selected game's information with several reviews.<br>
 13. User pushes the back button to move to a previous view.<br>
 14. User pushes the back button to move to start point.<br>
-    i. Listview contents are removed and free.<br>
+    j. Listview contents are removed and free.<br>
 15. User pushes the back button to finish program.<br>
 
 <br>
