@@ -45,10 +45,10 @@ Design Sketch
 10. User pushes save button.<br>
     c. Previous view automatically shows.<br>
 11. User pushes search button.<br>
-    d. Classifier predict the user's class and pass it's result to filter.<br>
-    e. Filter search datas from Database by using the result and select data which fit to user's criterion. <br>
-    f. Recommender calculate similarity between the user's writing and other users reviews.<br>
-    g. UI builder build listview and it's components.<br>
+    d. Classifier predicts the user's class and pass it's result to filter.<br>
+    e. Filter searches datas from Database by using the result and select data which fit to user's criterion. <br>
+    f. Recommender calculates similarity between the user's writing and other users reviews.<br>
+    g. UI builder builds listview and it's components.<br>
 12. User pushes item which contains a game to get more information on the Listview.<br>
     h. UI shows selected game's information with several reviews.<br>
 13. User pushes the back button to move to a previous view.<br>
