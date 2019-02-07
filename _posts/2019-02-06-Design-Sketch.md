@@ -1,7 +1,7 @@
 ---
 title: Game Recommender Design Sketch
 tags: Projects
-published: ture
+published: true
 ---
 <H3>
 Design Sketch
