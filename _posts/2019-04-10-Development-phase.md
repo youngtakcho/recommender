@@ -129,7 +129,10 @@ for this experiment, the number of sampled data of each genres is  <br>
 'Adventure': 5965, <br>
 'RPG': 3071<br>
  total: 41336<br>
-Now the server use **CountVectorizer multinormialNB** to predict a class of user's query.
+
+When I get sample data, I only select reviews from a user who played review's game over 100 hours and reviews length over 100 characters. Since I assume that there is no person who write inappropriate words with effort to type over 100 characters and a plyer who played game over 100 hours is good at writing good reviews for game, I select reviews.
+
+We can see **CountVectorizer multinormialNB** makes best result. Now the server use **CountVectorizer multinormialNB** to predict a class of user's query.
 
 CounterVectorrizer and Tf-idf Vectorizer I made use python dictionary and words are key of the dictionary. This makes processing time longer. Due to string comparisons takes a lot of overheads, every serch operation in dictionary takes time. To get a idea to speed up process, now I study sklearn's source code. They don't use string comparisons. Instead of using String, they use a number comparison by mapping a word to a number. When training process run, there are a lot of getting word-value operation in dictionary. By using a number not string for storing words, they can redusse a lot of time to training process. In addtion, they also use numpy and Compressed Sparse 
 Row Matrix which does not store all matrix elemetns but store non zero values and index of them. Numpy use a low level C impliaments which is very fast and CSR Matrix helps same memory space. 
