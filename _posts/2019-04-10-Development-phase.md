@@ -86,14 +86,37 @@ First one makes data size double or more and makes expected train time much long
 For select a genre from genres,  **select_genre.py** script file iterates all data rows in the database and select primary genre from a game's genres column.
 
 After this, Naive Bayes classifier can be used. Here is mean time table which is calculated with varied option and 3 different type of Naive Bayes classifier.
-|Vectorize methods and Type of Naive Bayes| Precision|
-|--|--|
-|CountVectorizer multinormialNB| 0.7603673613564111 |
-|CountVectorizer GaussianNB | 0.48851995761215117 |
-|CountVectorizer BernoulliNB | 0.5824090427410809 |
-|tf-idf multinormialNB| 0.6729070999646768 |
-|tf-idf GaussianNB | 0.4487460261391734 |
-|tf-idf BernoulliNB | 0.6478460391863427 |
+
+<table>
+  <tr>
+    <th>Vectorize methods and Type of Naive Bayes</th>
+    <th>Precision</th>
+  </tr>
+  <tr>
+    <td>CountVectorizer multinormialNB</td>
+    <td> 0.7603673613564111 </td>
+  </tr>
+  <tr>
+    <td>CountVectorizer GaussianNB</td>
+    <td>0.48851995761215117 </td>
+  </tr>
+  <tr>
+    <td>CountVectorizer BernoulliNB </td>
+    <td>0.5824090427410809</td>
+  </tr>
+  <tr>
+    <td>tf-idf multinormialNB </td>
+    <td>0.6729070999646768</td>
+	</tr>
+  <tr>
+    <td>tf-idf GaussianNB  </td>
+    <td>0.4487460261391734</td>
+  </tr>
+<tr>
+    <td>tf-idf BernoulliNB  </td>
+    <td>0.6478460391863427</td>
+  </tr>
+</table>
 
 for this experiment, the number of sampled data of each genres is  
 'Sports': 2093, 
