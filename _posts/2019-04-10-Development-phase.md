@@ -133,6 +133,7 @@ Now the server use **CountVectorizer multinormialNB** to predict a class of user
 
 CounterVectorrizer and Tf-idf Vectorizer I made use python dictionary and words are key of the dictionary. This makes processing time longer. Due to string comparisons takes a lot of overheads, every serch operation in dictionary takes time. To get a idea to speed up process, now I study sklearn's source code. They don't use string comparisons. Instead of using String, they use a number comparison by mapping a word to a number,. A number comparison operation takes O(1). In contrast of that, a string comparison takes O(n+m) time. When training process run, there are a lot of getting word-value operation in dictionary. By using a number not string for storing words, they can redusse a lot of time to training process. Now I take this idea and re build all my model codes.
 
-## On going taks
+## Ongoing tasks
 1. Build a new counter vectorizer and tf-idf vecotrizer and naive bayes classifier without string comparisons.
 2. Build a Recommender module.
+3. Make documents for this projects.
