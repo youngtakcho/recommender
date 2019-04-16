@@ -163,7 +163,7 @@ As I mentioned earlier, the factor which make the code fast is avoiding string m
 
 Code 1
 
-'''
+```python
 if word not in i_dict:
 	self.word_dictionary[word] = self.idx
 	self.idx +=1
@@ -172,11 +172,11 @@ if word not in i_dict:
 		self.i_dict[word][1][d_id] = 0
 		self.i_dict[word][1][d_id] += 1
 		self.i_dict[word][0] += 1
-'''
+```
 
 Code 2
 
-'''
+```python
         indptr.append(0)
         for raw_doc in raw_docs:
             feature_counter = {}
@@ -191,7 +191,7 @@ Code 2
                     # if the new words occur in query which is not trained
                     # it will be ignored.
                     continue
-'''
+```
 
 Code 1 is old code and code 2 is new code. In code 1, I use a word as a key of dictionary for storing inverted index and doc-term occruence. In the code 2, it use the dictionary but key is a number of id for word. Removing stirng comparison and using doc-tarm matrix instead of using doc-tarm dictionary, these make the difference.
 
