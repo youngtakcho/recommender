@@ -159,6 +159,41 @@ before and after change in processing time to calculate all rows in data set lik
 
 Now, I get inverted index dictionary, trained CountVectorizer and TfIdfVectorizer in half the time compared to before.
 
+As I mentioned earlier, the factor which make the code fast is avoiding string mathing. 
+
+Code 1
+
+'''
+if word not in i_dict:
+	self.word_dictionary[word] = self.idx
+	self.idx +=1
+	self.i_dict[word] = [0, dict()]
+	if d_id not in i_dict[word][1]:
+		self.i_dict[word][1][d_id] = 0
+		self.i_dict[word][1][d_id] += 1
+		self.i_dict[word][0] += 1
+'''
+
+Code 2
+
+'''
+        indptr.append(0)
+        for raw_doc in raw_docs:
+            feature_counter = {}
+            doc = self.preprocess(raw_doc)
+            for feature in doc:
+                try:
+                    feature_idx = vocab[feature]
+                    if feature_idx not in feature_counter:
+                        feature_counter[feature_idx]=0
+                    feature_counter[feature_idx] +=1
+                except KeyError:
+                    # if the new words occur in query which is not trained
+                    # it will be ignored.
+                    continue
+'''
+
+
 
 ## Ongoing tasks
 1. Build a new counter vectorizer and tf-idf vecotrizer and naive bayes classifier without string comparisons.
