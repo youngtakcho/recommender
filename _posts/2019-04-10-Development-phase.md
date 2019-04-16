@@ -68,6 +68,7 @@ The code which build the dictionary is quite simple.
         if i not in dictionary:  
             dictionary[i] = set()  
         dictionary[i].add(idx)
+
 the preprocess function do lemmatization and stemming with Gensim. 
 First for loop iterates words in a pre_process list and check whether it is in the dictionary or not. 
 if not, add it to dictionary as a key and make set as it's value. python set do not store duplicated data which is reviews' id. After doing this for all review texts, we can get reviews' id by using a word as a key of the dictionary.
@@ -134,11 +135,37 @@ When I get sample data, I only select reviews from a user who played review's ga
 
 We can see **CountVectorizer multinormialNB** makes best result. Now the server use **CountVectorizer multinormialNB** to predict a class of user's query.
 
-CounterVectorrizer and Tf-idf Vectorizer I made use python dictionary and words are key of the dictionary. This makes processing time longer. Due to string comparisons takes a lot of overheads, every serch operation in dictionary takes time. To get a idea to speed up process, now I study sklearn's source code. They don't use string comparisons. Instead of using String, they use a number comparison by mapping a word to a number. When training process run, there are a lot of getting word-value operation in dictionary. By using a number not string for storing words, they can redusse a lot of time to training process. In addtion, they also use numpy and Compressed Sparse 
-Row Matrix which does not store all matrix elemetns but store non zero values and index of them. Numpy use a low level C impliaments which is very fast and CSR Matrix helps same memory space. 
-Now I take this idea and re-build all my model codes.
+CounterVectorrizer and Tf-idf Vectorizer I made use python dictionary and words are key of the dictionary. This makes processing time longer. Due to string comparisons takes a lot of overheads, every serch operation in dictionary takes time. To get a idea to speed up process, now I study sklearn's source code. They don't use string comparisons. Instead of using String, they use a number comparison by mapping a word to a number. When training process run, there are a lot of getting word-value operation in dictionary. By using a number not string for storing words, they can redusse a lot of time to training process. In addtion, they also use numpy and Compressed Sparse Row Matrix which does not store all matrix elemetns but store non zero values and index of them.
+<br>Numpy use a low level C impliaments which is very fast and CSR Matrix helps to save memory space.
+
+Now I re-make my inverted index, CountVectorizer and TfIdfVectorizer after I studied sklearn implimentation.
+
+before and after change in processing time to calculate all rows in data set like below.
+
+<table>
+  <tr>
+    <th>adopting numpy and CSR matrix</th>
+    <th>processing time in sec</th>
+  </tr>
+  <tr>
+    <td>before</td>
+    <td>1824</td>
+  </tr>
+  <tr>
+    <td>after</td>
+    <td>869</td>
+  </tr>
+</table>
+
+Now, I get inverted index dictionary, trained CountVectorizer and TfIdfVectorizer in half the time compared to before.
+
 
 ## Ongoing tasks
 1. Build a new counter vectorizer and tf-idf vecotrizer and naive bayes classifier without string comparisons.
 2. Build a Recommender module.
 3. Make documents for this projects.
+
+## References
+
+1. Scikit-Learn. <em>Sklearn text module</em>. https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/feature_extraction/text.py
+2. Wikipedia. <em>Sparse Matrix</em> https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)
