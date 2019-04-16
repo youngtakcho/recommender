@@ -193,6 +193,7 @@ Code 2
                     continue
 '''
 
+Code 1 is old code and code 2 is new code. In code 1, I use a word as a key of dictionary for storing inverted index and doc-term occruence. In the code 2, it use the dictionary but key is a number of id for word. Removing stirng comparison and using doc-tarm matrix instead of using doc-tarm dictionary, these make the difference.
 
 
 ## Ongoing tasks
