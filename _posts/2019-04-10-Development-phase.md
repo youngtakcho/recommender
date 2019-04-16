@@ -167,5 +167,5 @@ Now, I get inverted index dictionary, trained CountVectorizer and TfIdfVectorize
 
 ## References
 
-1. Scikit-Learn. <em>Sklearn text module</em>. https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/feature_extraction/text.py
-2. Wikipedia. <em>Sparse Matrix</em> https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)
+1. Scikit-Learn. <em>Sklearn text module</em>.<br><https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/feature_extraction/text.py>
+2. Wikipedia. <em>Sparse Matrix</em> <br><https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)>
