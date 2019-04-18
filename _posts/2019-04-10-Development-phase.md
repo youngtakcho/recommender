@@ -117,6 +117,11 @@ After this, Naive Bayes classifier can be used. Here is mean time table which is
     <td>tf-idf BernoulliNB  </td>
     <td>0.6478460391863427</td>
   </tr>
+<tr>
+    <td>My CountVectorizer and Naive Beyse  </td>
+    <td> calculating... </td>
+  </tr>
+	
 </table>
 
 for this experiment, the number of sampled data of each genres is  <br>
@@ -195,6 +200,25 @@ Code 2
 
 Code 1 is old code and code 2 is new code. In code 1, I use a word as a key of dictionary for storing inverted index and doc-term occruence. In the code 2, it use the dictionary but key is a number of id for word. Removing stirng comparison and using doc-tarm matrix instead of using doc-tarm dictionary, these make the difference.
 
+# detail of CountVecotizer and TfidfVectorizer
+
+To convert review documents to vectors, we can count word by word and store to a data structure. at the start of thid project, dictionary with string as a key was used to store vectorized documents like below.
+```python
+vectorized = { word : ( totoal count, { doc_id:count } ) }
+```
+This structure, as I mentioned, has a disadvantage about processing speed. Now, the used structure is this.
+
+```
+scipy.sparse.csr_matrix
+row indices = docment indices
+column indices = vocabulary indices
+data = list of counting values
+```
+
+by using comperessed sparse matrix, memory space is saved.
+
+## evaluation
+Now updating
 
 ## Ongoing tasks
 1. Build a new counter vectorizer and tf-idf vecotrizer and naive bayes classifier without string comparisons.
