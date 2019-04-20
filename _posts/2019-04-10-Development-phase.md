@@ -261,7 +261,7 @@ df += int(self.smooth_idf)
 n_samples += int(self.smooth_idf)
 idf = np.log(n_samples/df) +1
 self._idf_diag = sp.diags(idf,offsets=0,
-													shape=(n_feature,n_feature),
+                          shape=(n_feature,n_feature),
                           format='csr',
                           dtype=dtype)
 ```
