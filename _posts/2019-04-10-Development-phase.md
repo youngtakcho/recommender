@@ -13,43 +13,43 @@ To store data to SQLite DB, the table structure is required. Here is my table st
 For game products data table
 
     CREATE TABLE "products" (
-	"id"	INTEGER,
-	"title"	TEXT,
-	"app_name"	TEXT,
-	"metascore"	TEXT,
-	"specs"	TEXT,
-	"developer"	TEXT,
-	"tags"	TEXT,
-	"url"	TEXT,
-	"genres"	TEXT,
-	"release_date"	TEXT,
-	"publisher"	TEXT,
-	"price"	TEXT,
-	"early_access"	TEXT,
-	"reviews_url"	TEXT,
-	"discount_price"	TEXT,
-	"n_reviews"	TEXT,
-	"sentiment"	TEXT,
-	"p_genre"	TEXT,
-	PRIMARY KEY("id"));
+    "id"	INTEGER,
+    "title"	TEXT,
+    "app_name"	TEXT,
+    "metascore"	TEXT,
+    "specs"	TEXT,
+    "developer"	TEXT,
+    "tags"	TEXT,
+    "url"	TEXT,
+    "genres"	TEXT,
+    "release_date"	TEXT,
+    "publisher"	TEXT,
+    "price"	TEXT,
+    "early_access"	TEXT,
+    "reviews_url"	TEXT,
+    "discount_price"	TEXT,
+    "n_reviews"	TEXT,
+    "sentiment"	TEXT,
+    "p_genre"	TEXT,
+    PRIMARY KEY("id"));
 
  For reviews data table 
 
     CREATE TABLE "reviews" (
-	"r_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
-	"product_id"	INTEGER,
-	"user_id"	INTEGER,
-	"recommended"	TEXT,
-	"hours"	REAL,
-	"text"	TEXT,
-	"found_funny"	TEXT,
-	"compensation"	TEXT,
-	"page_order"	TEXT,
-	"products"	TEXT,
-	"early_access"	TEXT,
-	"username"	TEXT,
-	"page"	TEXT,
-	"date"	TEXT);
+    "r_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+    "product_id"	INTEGER,
+    "user_id"	INTEGER,
+    "recommended"	TEXT,
+    "hours"	REAL,
+    "text"	TEXT,
+    "found_funny"	TEXT,
+    "compensation"	TEXT,
+    "page_order"	TEXT,
+    "products"	TEXT,
+    "early_access"	TEXT,
+    "username"	TEXT,
+    "page"	TEXT,
+    "date"	TEXT);
 
 To store data to SQLite,  **data_to_db.py** can be used. This python script read Json file and store data to SQLite DB. In this step, the review texts have a lot of noise like non English texts, emoticons and special characters. the code in the python script remove these noise.
 
@@ -120,10 +120,7 @@ After this, Naive Bayes classifier can be used. Here is mean time table which is
 <tr>
     <td>My CountVectorizer and Naive Beyse  </td>
     <td> calculating... </td>
-  </tr>
-	
-</table>
-
+  </tr></table>
 for this experiment, the number of sampled data of each genres is  <br>
 'Sports': 2093, <br>
 'Casual': 8107, <br>
@@ -182,25 +179,32 @@ if word not in i_dict:
 Code 2
 
 ```python
-        indptr.append(0)
-        for raw_doc in raw_docs:
-            feature_counter = {}
-            doc = self.preprocess(raw_doc)
-            for feature in doc:
-                try:
-                    feature_idx = vocab[feature]
-                    if feature_idx not in feature_counter:
-                        feature_counter[feature_idx]=0
-                    feature_counter[feature_idx] +=1
-                except KeyError:
-                    # if the new words occur in query which is not trained
-                    # it will be ignored.
-                    continue
+indptr.append(0)
+index = 0
+for raw_doc in raw_docs:
+  feature_counter = {}
+  doc = self.preprocess(raw_doc)
+  for feature in doc:
+    if y is not None:
+      if feature not in inverted_index_dict:
+        inverted_index_dict[feature] = set()
+        inverted_index_dict[feature].add(y[index])
+			try:
+        feature_idx = vocab[feature]
+        if feature_idx not in feature_counter:
+          feature_counter[feature_idx]=0
+          feature_counter[feature_idx] +=1
+			except KeyError:
+              continue
+		j_indices.extend(feature_counter.keys())
+    values.extend((feature_counter.values()))
+    indptr.append(len(j_indices))
+    index += 1
 ```
 
 Code 1 is old code and code 2 is new code. In code 1, I use a word as a key of dictionary for storing inverted index and doc-term occruence. In the code 2, it use the dictionary but key is a number of id for word. Removing stirng comparison and using doc-tarm matrix instead of using doc-tarm dictionary, these make the difference.
 
-### detail of CountVecotizer and TfidfVectorizer
+### Detail of CountVecotizer and TfidfVectorizer
 
 To convert review documents to vectors, we can count word by word and store to a data structure. at the start of thid project, dictionary with string as a key was used to store vectorized documents like below.
 ```python
@@ -208,14 +212,43 @@ vectorized = { word : ( totoal count, { doc_id:count } ) }
 ```
 This structure, as I mentioned, has a disadvantage about processing speed. Now, the used structure is this.
 
-```
-scipy.sparse.csr_matrix
-row indices = docment indices
-column indices = vocabulary indices
-data = list of counting values
+```python
+# X = scipy.sparse.csr_matrix
+# data = the list of numbers of counted words
+# IA = a list of the cumulated number of data. It shows how many data are in a row. The number of rows in matrix is len(IA) - 1.
+# JA = a list of the column index of data. each column index is parsed to a term in the dataset.
+# Vocabulary = a dictionary which contains the id number of each tarms in documents (dataset).
+X = scipy.sparse.csr_matrix((data,JA,IA),shape=(len(IA)-1,len(vocabulary)),dytpe=numpy.int64)
+
 ```
 
-by using comperessed sparse matrix, memory space is saved.
+the Dictionary based representation of vector is simple and good to understend directly but it is slow. However, the Compressed Sparse Row Matrix method seems to bed to understend directly but it is fast. 
+
+Now we have doc-term occurrence table as a CSR Matrix. Each rows in the table shows how the terms are occurred in the documents. 
+
+```python
+documents = [
+	"apple apple iphone macos",
+	"android google samsung motorola",
+	"windows phone apple android samsung"
+]
+```
+
+then the doc-term occurrence table is like below.
+
+| doc id | apple | iphone | macos | android | google | samsung | motorola | windws | phone |
+| ------ | ----- | ------ | ----- | ------- | ------ | ------- | -------- | ------ | ----- |
+| 0      | 2     | 1      | 1     | 0       | 0      | 0       | 0        | 0      | 0     |
+| 1      | 0     | 0      | 0     | 1       | 1      | 1       | 1        | 0      | 0     |
+| 2      | 1     | 0      | 0     | 1       | 0      | 1       | 0        | 1      | 1     |
+
+In the code 2, there are values, j_indices, indptr arrays. they are formed in the rule of CSR matrix ( data = values, j_array = JA , indptr = IA).
+
+And Now How to calculate Tf-idf?, the doc-term occurrence table is Term Frequency table. Tf calculation is already done. How about the idf value? Idf calculation is done with this formula.
+$$
+idf_t = {The~number~of~Total~Documents \over The~number~of~Documents~which~contains~a~term~t}
+$$
+
 
 ## evaluation
 Now updating
