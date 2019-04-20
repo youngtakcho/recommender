@@ -246,8 +246,38 @@ In the code 2, there are values, j_indices, indptr arrays. they are formed in th
 
 And Now How to calculate Tf-idf?, the doc-term occurrence table is Term Frequency table. Tf calculation is already done. How about the idf value? Idf calculation is done with this formula.
 $$
-idf_t = {The~number~of~Total~Documents \over The~number~of~Documents~which~contains~a~term~t}
+idf_t = \log({N = The~number~of~Total~Documents \over df_t =  The~number~of~Documents~which~contains~a~term~t})
 $$
+
+
+The number of Total Documents in dataset is the number of rows in the table and the $df_t$ can be calculated by count the number of non zero values in the term column.
+
+Here is the code which calculate idf of all terms in documents.
+
+```python
+n_samples , n_feature = X.shape
+df = self._document_frequency(X).astype(dtype)
+df += int(self.smooth_idf)
+n_samples += int(self.smooth_idf)
+idf = np.log(n_samples/df) +1
+self._idf_diag = sp.diags(idf,offsets=0,
+													shape=(n_feature,n_feature),
+                          format='csr',
+                          dtype=dtype)
+```
+
+df is a document frquency vector which contains the number of tarm occurrence in each rows in the data. the value "smooth_idf" is smoothing value which protects idf result from over/underflow and divied by Zero Error. 
+
+In this code, idf is a vector of numbers and it's dimention is ( 1, the number of terms). To make calculation faster, we can use the metrix operation for Tf-idf calculation. Making idf vector to a diagonal matrix and Doing vector - matrix multply operation are the way to speed up and easy to readable for us.
+
+code line  `scipy.sparse.diags` method makes a diagonal matrix and the result of thid method will use in runtime like this.
+
+`X = X * self._idf_diag`
+
+X is term frequency matrix which calculated by CountVectorizer  and `_idf_diag` is the diagonal matrix.
+
+
+
 
 
 ## evaluation
