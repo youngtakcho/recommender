@@ -261,7 +261,7 @@ df += int(self.smooth_idf)
 n_samples += int(self.smooth_idf)
 idf = np.log(n_samples/df) +1
 self._idf_diag = sp.diags(idf,offsets=0,
-                          shape=(n_feature,n_feature),
+													shape=(n_feature,n_feature),
                           format='csr',
                           dtype=dtype)
 ```
@@ -274,17 +274,26 @@ code line  `scipy.sparse.diags` method makes a diagonal matrix and the result of
 
 `X = X * self._idf_diag`
 
-X is term frequency matrix which calculated by CountVectorizer  and `_idf_diag` is the diagonal matrix.
+X is term frequency matrix and _idf_diag is a digonal matrix. We can calculate Tf-Idf value by multipying them.
 
 
 
+### Detail of Naive Bayes
 
+The Naive Bayes classifier predicts a class of query by calculating probabilities for each class. For this project, it predicts a class of game from user's query.
 
+The probability of a class over query X is here.  X is a vector to which the vectorizer change query. 
+$$
+Classes = \{Sports, Casual, Racing, Strategy, Action, Simulation, Indie, Adventure RPG\} \\
+Class_k \in Classes\\
+X = (x_1,x_2,...,x_n)\\
+P(Class_k|X) = {{P(X|Class_k) * P(Class_k)}\over {P(X)}}
+$$
 ## evaluation
 Now updating
 
 ## Ongoing tasks
-1. Build a new counter vectorizer and tf-idf vecotrizer and naive bayes classifier without string comparisons.
+1. Build a new counter vectorizer and tf-idf vectorizer and naive bayes classifier without string comparisons.
 2. Build a Recommender module.
 3. Make documents for this projects.
 
