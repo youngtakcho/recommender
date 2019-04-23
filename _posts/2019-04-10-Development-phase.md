@@ -73,7 +73,7 @@ the preprocess function do lemmatization and stemming with Gensim.
 First for loop iterates words in a pre_process list and check whether it is in the dictionary or not. 
 if not, add it to dictionary as a key and make set as it's value. python set do not store duplicated data which is reviews' id. After doing this for all review texts, we can get reviews' id by using a word as a key of the dictionary.
 
-
+For vectorizing and calculating Tf-IDF, Please read phase 2.
 
 ## Development phase 2
 
@@ -261,7 +261,7 @@ df += int(self.smooth_idf)
 n_samples += int(self.smooth_idf)
 idf = np.log(n_samples/df) +1
 self._idf_diag = sp.diags(idf,offsets=0,
-													shape=(n_feature,n_feature),
+                          shape=(n_feature,n_feature),
                           format='csr',
                           dtype=dtype)
 ```
