@@ -287,7 +287,7 @@ $$
 Classes = \{Sports, Casual, Racing, Strategy, Action, Simulation, Indie, Adventure RPG\} \\
 Class_k \in Classes\\
 X = (x_1,x_2,...,x_n)\\
-P(Class_k|X) = {{P(X|Class_k) * P(Class_k)}\over {P(X)}}
+P(Class_k|X) = { {P(X|Class_k) * P(Class_k)} \over P(X) }
 $$
 ## evaluation
 Now updating
