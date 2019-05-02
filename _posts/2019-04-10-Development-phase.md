@@ -290,7 +290,54 @@ X = (x_1,x_2,...,x_n)\\
 P(Class_k|X) = { {P(X|Class_k) * P(Class_k)} \over P(X) }
 $$
 ## evaluation
-Now updating
+<table>
+  <tr>
+    <th>Vectorize methods and Type of Naive Bayes</th>
+    <th>Precision</th>
+  </tr>
+  <tr>
+    <td>CountVectorizer multinormialNB</td>
+    <td> 0.7603673613564111 </td>
+  </tr>
+  <tr>
+    <td>CountVectorizer GaussianNB</td>
+    <td>0.48851995761215117 </td>
+  </tr>
+  <tr>
+    <td>CountVectorizer BernoulliNB </td>
+    <td>0.5824090427410809</td>
+  </tr>
+  <tr>
+    <td>tf-idf multinormialNB </td>
+    <td>0.6729070999646768</td>
+	</tr>
+  <tr>
+    <td>tf-idf GaussianNB  </td>
+    <td>0.4487460261391734</td>
+  </tr>
+<tr>
+    <td>tf-idf BernoulliNB  </td>
+    <td>0.6478460391863427</td>
+  </tr>
+<tr>
+    <td>My CountVectorizer and Naive Beyse  </td>
+    <td> calculating... </td>
+  </tr></table>
+
+<table>
+  <tr>
+    <th>adopting numpy and CSR matrix</th>
+    <th>processing time in sec</th>
+  </tr>
+  <tr>
+    <td>before</td>
+    <td>1824</td>
+  </tr>
+  <tr>
+    <td>after</td>
+    <td>869</td>
+  </tr>
+</table>
 
 ## Ongoing tasks
 1. Build a new counter vectorizer and tf-idf vectorizer and naive bayes classifier without string comparisons.
