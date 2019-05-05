@@ -61,15 +61,17 @@ With the Inverted index dictionary, search query can be select reviews which con
 
 The code which build the dictionary is quite simple.
 
-    for (idx , text) in rows:  
-    id_list = []  
-    pre_processed = preprocess(text)  
-    for i in pre_processed:  
-        if i not in dictionary:  
-            dictionary[i] = set()  
-        dictionary[i].add(idx)
+```python
+for (idx , text) in rows:  
+id_list = []  
+pre_processed = preprocess(text)  
+for i in pre_processed:  
+    if i not in dictionary:  
+        dictionary[i] = set()  
+    dictionary[i].add(idx)
+```
 
-the preprocess function do lemmatization and stemming with Gensim. 
+The preprocess function do lemmatization and stemming with Gensim. 
 First for loop iterates words in a pre_process list and check whether it is in the dictionary or not. 
 if not, add it to dictionary as a key and make set as it's value. python set do not store duplicated data which is reviews' id. After doing this for all review texts, we can get reviews' id by using a word as a key of the dictionary.
 
@@ -127,11 +129,25 @@ for raw_doc in raw_docs:
     index += 1
 ```
 
-Code 1 is old code and code 2 is new code. In code 1, I use a word as a key of dictionary for storing inverted index and doc-term occruence. In the code 2, it use the dictionary but key is a number of id for word. Removing stirng comparison and using doc-tarm matrix instead of using doc-tarm dictionary, these make the difference.
+Code 1 is old code and code 2 is new code. In code 1, I use a word as a key of dictionary for storing inverted index and doc-term occurrence. In the code 2, it use the dictionary but key is a number of id for word. Removing string comparison and using doc-term matrix instead of using doc-term dictionary, these make the difference.
+
+By using CounterVectorrizer and TfidfVectorizer, reviews and a query from user can be transformed into vectors. After those process, similarity can be calculated with the formula below.
+$$
+v_{d1} = Vectorized~document~1\\
+v_{d2} = Vectorized~document~2\\
+Cosin~Similarity(v_{d1},v_{d2}) =cos(\theta)= {{{\sum^{n}_{i=0}}({v_{d1}}_{i}{v_{d2}}_{i}})\over{\sqrt{\sum^{n}_{i=0}{{v_{d1}}_{i}}}\sqrt{\sum^{n}_{i=0}{{v_{d2}}_{i}}}}}
+$$
+In the formula, denominator is multiplying the length of the vector 1 and the length of the vector 2. In the cosine similarity calculation, the distance between two vectors is not a matter but angle between two vectors. Moreover, the function sqrt  is expensive. If vectors are normalized before, denominator is 1. So now the formula can be represented.
+$$
+v_{d1} = Vectorized~document~1\\
+v_{d2} = Vectorized~document~2\\
+Cosin~Similarity(v_{d1},v_{d2}) =cos(\theta)= {{{\sum^{n}_{i=0}}({v_{d1}}_{i}{v_{d2}}_{i}})}
+$$
+
 
 ### Detail of CountVecotizer and TfidfVectorizer
 
-To convert review documents to vectors, we can count word by word and store to a data structure. at the start of thid project, dictionary with string as a key was used to store vectorized documents like below.
+To convert review documents to vectors, we can count word by word and store to a data structure. at the start of the project, dictionary with string as a key was used to store vectorized documents like below.
 ```python
 vectorized = { word : ( totoal count, { doc_id:count } ) }
 ```
@@ -147,7 +163,7 @@ X = scipy.sparse.csr_matrix((data,JA,IA),shape=(len(IA)-1,len(vocabulary)),dytpe
 
 ```
 
-the Dictionary based representation of vector is simple and good to understend directly but it is slow. However, the Compressed Sparse Row Matrix method seems to bed to understend directly but it is fast. 
+the Dictionary based representation of vector is simple and easy to be implemented but slow. However, Compressed Sparse Row matrix based method is good for understanding and fast.
 
 Now we have doc-term occurrence table as a CSR Matrix. Each rows in the table shows how the terms are occurred in the documents. 
 
@@ -169,7 +185,7 @@ then the doc-term occurrence table is like below.
 
 In the code 2, there are values, j_indices, indptr arrays. they are formed in the rule of CSR matrix ( data = values, j_array = JA , indptr = IA).
 
-And Now How to calculate Tf-idf?, the doc-term occurrence table is Term Frequency table. Tf calculation is already done. How about the idf value? Idf calculation is done with this formula.
+And Now How to calculate Tfidf?, the doc-term occurrence table is basically Term Frequency table. Tf calculation is already done. How about the idf value? Idf calculation is done with this formula.
 $$
 idf_t = \log({N = The~number~of~Total~Documents \over df_t =  The~number~of~Documents~which~contains~a~term~t})
 $$
@@ -191,7 +207,7 @@ self._idf_diag = sp.diags(idf,offsets=0,
                           dtype=dtype)
 ```
 
-df is a document frquency vector which contains the number of tarm occurrence in each rows in the data. the value "smooth_idf" is smoothing value which protects idf result from over/underflow and divied by Zero Error. 
+df is a document frequency vector which contains the number of term occurrence in each rows in the data. the value "smooth_idf" is smoothing value which protects idf result from over/underflow and divided by Zero Error. 
 
 In this code, idf is a vector of numbers and it's dimention is ( 1, the number of terms). To make calculation faster, we can use the metrix operation for Tf-idf calculation. Making idf vector to a diagonal matrix and Doing vector - matrix multply operation are the way to speed up and easy to readable for us.
 
@@ -199,7 +215,7 @@ code line  `scipy.sparse.diags` method makes a diagonal matrix and the result of
 
 `X = X * self._idf_diag`
 
-X is term frequency matrix and _idf_diag is a digonal matrix. We can calculate Tf-Idf value by multipying them.
+X is term frequency matrix and _idf_diag is a diagonal matrix. We can calculate Tfidf value by multipying them.
 
 ## Development phase 2
 
