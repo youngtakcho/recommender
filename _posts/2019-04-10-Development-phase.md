@@ -292,7 +292,7 @@ X is a doc-term matrix from CountVecotrizer, y is a clsses list of each document
 
 For each classes, term probability vector is transformed into a diagonal matrix form. What a diagonal matrix form  is for?
 
-X is a matrix which is made by the CountVectorizer. when user queries come into the system, them will be transformed into a matrix as same as documents. if CountVectorizer transforms a user query into a boolean vector which contains only 0 or 1 (existence of a word in query), the result of multiplication of the vector and the diagonal matrix is $P(Class_k|X)$ in log scale form.
+X is a matrix which is made by the CountVectorizer. when user queries come into the system, them will be transformed into a matrix as same as documents. if CountVectorizer transforms a user query into a boolean vector which contains only 0 or 1 (existence of a word in query), the result of multiplication of the vector and the diagonal matrix is $" P(Class_k|X)" $ in log scale form.
 
 Here is the code.
 
