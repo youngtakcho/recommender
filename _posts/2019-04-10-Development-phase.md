@@ -141,7 +141,7 @@ In the formula, denominator is multiplying the length of the vector 1 and the le
 $$
 v_{d1} = Vectorized~document~1\\
 v_{d2} = Vectorized~document~2\\
-Cosin~Similarity(v_{d1},v_{d2}) =cos(\theta)= {{{\sum^{n}_{i=0}}({v_{d1}}_{i}{v_{d2}}_{i}})}
+Cosin~Similarity(v_{d1},v_{d2}) =cos(\theta)= {~{~{\sum^{n}_{i=0}~}({v_{d1}~}_{i}~{v_{d2}~}_{i}~})}
 $$
 
 
