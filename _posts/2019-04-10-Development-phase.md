@@ -328,7 +328,40 @@ Second, handing with multiple genre is hard to calculate probabilities. In the g
 
 ## Development phase 3
 
-In this phase, Recommend process is applied. Unfortunately, the user information is not collected.
+In this phase, Recommend process is applied. Unfortunately, the user information is not collected. For using User based collaboration recommend, user information should be collected and stored for future works. Without user data, Item based collaboration can be used.
+
+Item based collaboration recommends a item which is similar to user selected item. the last screen of this search system is a game information with one user review. So by using the review, we can find similar game reviews and calculate similarities between them. After this step, We can recommend a game by sorting the similarity results list of game reviews.
+
+Here is the code.
+
+```python
+def show_review():
+    .... 
+    X = app.count_vect.transform(texts)
+    X_tfidf = app.tfidf_transformer.transform(X)
+
+    query_X = app.count_vect.transform([r_text])
+    query_X_tfidf = app.tfidf_transformer.transform(r_X)
+
+    sim = Similarity()
+    result_siml = sim.calculate(X_tfidf,query_X_tfidf)
+    ordered = sorted(range(len(result_siml)), key=lambda k: result_siml[k], reverse=True)
+    products_list = []
+    counter = 0
+    for i in ordered:
+        if product_ids[i] not in products_list and counter < 10:
+            products_list.append(product_ids[i]) # list of products.
+            counter += 1
+    t_rows = []
+    for pro in products_list:
+        c.execute("select title,developer,genres,tags from products WHERE id=" + str(pro))
+        rows = c.fetchall()
+        for title, developer, tags, genres in rows:
+            t_rows.append(r_Item(title, developer, tags, genres))
+
+```
+
+In the code, X and query_x are a doc-term matrix. those are transformed by CountVectorizer. Originally, X is reviews from dataset and query_q is a user query.  this code is similar to basic search. The step for recommendation is search reviews by boolean search with user select review as a query, make search results vector form, calculate cosine similarities, sort results, print top results.
 
 
 ##  evaluation
@@ -364,8 +397,9 @@ In this phase, Recommend process is applied. Unfortunately, the user information
   </tr>
 <tr>
     <td>My CountVectorizer and Naive Beyse  </td>
-    <td> calculating... </td>
+    <td> 0.7603633413264111 </td>
   </tr></table>
+
 for this experiment, the number of sampled data of each genres is  <br>
 'Sports': 2093, <br>
 'Casual': 8107, <br>
@@ -379,7 +413,7 @@ for this experiment, the number of sampled data of each genres is  <br>
  total: 41336<br>
 When I get sample data, I only select reviews from a user who played review's game over 100 hours and reviews length over 100 characters. Since I assume that there is no person who write inappropriate words with effort to type over 100 characters and a plyer who played game over 100 hours is good at writing good reviews for game, I select reviews.
 
-We can see **CountVectorizer multinormialNB** makes best result. Now the server use **CountVectorizer multinormialNB** to predict a class of user's query.
+We can see **CountVectorizer multinormialNB**  and **My CountVectorizer and Naive Beyse** makes all most same and the highest result. Now the server use **My CountVectorizer and Naive Beyse** to predict a class of user's query.
 
 
 <table>
@@ -396,11 +430,11 @@ We can see **CountVectorizer multinormialNB** makes best result. Now the server 
     <td>869</td>
   </tr>
 </table>
+Moreover, the calculation method is makes difference between old and new. before we implement matrix calculation, vectorization with dictionary took 1824. with matrix calculation method, the processing time is decreased by 16 minutes.
 
-## Ongoing tasks
-1. Build a new counter vectorizer and tf-idf vectorizer and naive bayes classifier without string comparisons.
-2. Build a Recommender module.
-3. Make documents for this projects.
+## Future Tasks
+
+This system does not provide a user system which saves user information like histories or personal information. By adding it, we can recommend a game based on user preferences like playing histories ( i.e. User Based Collaboration recommend ).
 
 ## References
 
