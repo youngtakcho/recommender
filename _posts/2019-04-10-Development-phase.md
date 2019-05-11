@@ -236,7 +236,9 @@ P(Class_k|X) = { {P(X|Class_k) * P(Class_k)} \over P(X) }
 $$
 And by the conditional independency, $P(X|Class_k)$ can be represented like this.
 
-$P(x_1|Class_x) * P(x_2|Class_x) * P(x_3|Class_x)*... * P(x_n|Class_x)$
+$$
+P(x_1|Class_x) * P(x_2|Class_x) * P(x_3|Class_x)*... * P(x_n|Class_x)
+$$
 
 the formula can be transformed like this.
 $$
@@ -292,7 +294,7 @@ X is a doc-term matrix from CountVecotrizer, y is a clsses list of each document
 
 For each classes, term probability vector is transformed into a diagonal matrix form. What a diagonal matrix form  is for?
 
-X is a matrix which is made by the CountVectorizer. when user queries come into the system, them will be transformed into a matrix as same as documents. if CountVectorizer transforms a user query into a boolean vector which contains only 0 or 1 (existence of a word in query), the result of multiplication of the vector and the diagonal matrix is $" P(Class_k|X)" $ in log scale form.
+X is a matrix which is made by the CountVectorizer. when user queries come into the system, them will be transformed into a matrix as same as documents. if CountVectorizer transforms a user query into a boolean vector which contains only 0 or 1 (existence of a word in query), the result of multiplication of the vector and the diagonal matrix is $$" P(Class_k|X)"$$ in log scale form.
 
 Here is the code.
 
