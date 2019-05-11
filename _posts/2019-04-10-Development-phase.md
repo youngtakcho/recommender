@@ -135,7 +135,7 @@ By using CounterVectorrizer and TfidfVectorizer, reviews and a query from user c
 $$
 v_{d1} = Vectorized~document~1\\
 v_{d2} = Vectorized~document~2\\
-Cosin~Similarity(v_{d1},v_{d2}) =cos(\theta) = { { { \sum^{n}_{i=0} } ({v_{d1}}_{i}{v_{d2}}_{i}})\over{\sqrt{\sum^{n}_{i=0}{{v_{d1}}_{i}}}\sqrt{\sum^{n}_{i=0}{{v_{d2}}_{i}}}}}
+Cosin~Similarity(v_{d1},v_{d2}) = cos(\theta) = {{\sum(v_{d1}}_{i}{v_{d2}}_{i})\over\sqrt\sum{{v_{d1}}_{i}}\sqrt\sum{{v_{d2}}_{i}}}
 $$
 In the formula, denominator is multiplying the length of the vector 1 and the length of the vector 2. In the cosine similarity calculation, the distance between two vectors is not a matter but angle between two vectors. Moreover, the function sqrt  is expensive. If vectors are normalized before, denominator is 1. So now the formula can be represented.
 $$
